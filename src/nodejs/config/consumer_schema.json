@@ -36,7 +36,7 @@
                         "title": "Type",
                         "description": "" ,
                         "type": "string",
-                        "enum": [ "default", "Splunk", "Graphite", "Azure_Log_Analytics", "AWS_S3" , "AWS_CloudWatch" ]
+                        "enum": [ "default", "Splunk", "Graylog", "Graphite", "Azure_Log_Analytics", "AWS_S3" , "AWS_CloudWatch" ]
                     },
                     "host": {
                         "title": "Host",
