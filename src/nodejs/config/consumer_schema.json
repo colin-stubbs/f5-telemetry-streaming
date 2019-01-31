@@ -26,6 +26,12 @@
                         "type": "boolean",
                         "default": true
                     },
+                    "enable": {
+                         "title": "gzip",
+                         "description": "Enable or disable gzip compression" ,
+                         "type": "boolean",
+                         "default": false
+                     },
                     "trace": {
                         "title": "Trace",
                         "description": "Enables data dumping to file. Value could be string - path to file to dump data to." ,
