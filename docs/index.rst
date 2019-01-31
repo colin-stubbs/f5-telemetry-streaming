@@ -10,6 +10,7 @@ Introduction
 Telemetry Streaming (TS) is an iControl LX Extension delivered as a TMOS-independent RPM file. Installing the TS Extension on BIG-IP enables you to declaratively aggregate, normalize, and forward statistics and events from the BIG-IP to a consumer application by POSTing a single TS JSON declaration to TS’s declarative REST API endpoint. The supported third-party consumers include:
 
 -  Splunk
+-  Graylog
 -  Azure Log Analytics
 -  AWS CloudWatch
 -  AWS S3
@@ -25,8 +26,3 @@ Previous buttons to explore the documentation.
    :maxdepth: 3
 
    userguide/index
-
-
-
-
-

@@ -5,6 +5,7 @@
 Telemetry Streaming is an iControl LX extension to stream telemetry from BIG-IP(s) to analytics consumers such as the following.
 
 - Splunk
+- Graylog
 - Azure Log Analytics
 - AWS CloudWatch
 - AWS S3
@@ -88,6 +89,33 @@ Note: More information about using the HEC can be found on the Splunk website [h
         "host": "192.0.2.1",
         "protocol": "http",
         "port": "8088",
+        "passphrase": {
+            "cipherText": "apikey"
+        }
+    }
+}
+```
+
+### Graylog
+
+Website: [https://www.graylog.org](https://www.graylog.org).
+
+Required information:
+
+- Host: The address of the Graylog instance that runs a GELF HTTP input.
+- Protocol: Check if TLS is enabled within the input settings.
+- Port: Default is 12201, this can be configured within the input settings.
+
+Note: More information about using Graylog inputs can be found on the Graylog docs website [here](http://docs.graylog.org/en/3.0/pages/sending_data.html).
+
+```json
+{
+    "My_Consumer": {
+        "class": "Telemetry_Consumer",
+        "type": "Graylog",
+        "host": "192.0.2.1",
+        "protocol": "http",
+        "port": "12201",
         "passphrase": {
             "cipherText": "apikey"
         }

@@ -35,6 +35,33 @@ Example Declaration:
     }
 
 
+Graylog
+~~~~~~
+|graylog_img|
+
+Required information:
+ - Host: The address of the Graylog instance that runs the GELF HTTP input.
+ - Protocol: Check if TLS is enabled within Graylog input settings.
+ - Port: Default is 12201, this can be configured within the Global Settings section of the Splunk HEC.
+
+.. NOTE:: To see more information about using the GELF HTTP format, see |GELF|.
+
+Example Declaration:
+
+.. code-block:: json
+   :linenos:
+
+    {
+        "My_Consumer": {
+            "class": "Telemetry_Consumer",
+            "type": "Graylog",
+            "host": "192.0.2.1",
+            "protocol": "http",
+            "port": "12201"
+        }
+    }
+
+
 Microsoft Azure Log Analytics
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 |azure_img|
@@ -68,7 +95,7 @@ Example Dashboard:
 
 AWS Cloud Watch
 ~~~~~~~~~~~~~~~
-|aws_img|   
+|aws_img|
 
 Required information:
  - Region: AWS region of the cloud watch resource.
@@ -194,7 +221,7 @@ Required Information:
    :glob:
    :maxdepth: 1
 
-   
+
 .. |Azure documentation| raw:: html
 
    <a href="https://docs.microsoft.com/en-us/azure/azure-monitor/platform/data-collector-api" target="_blank">Azure documentation</a>
@@ -206,6 +233,10 @@ Required Information:
 .. |HEC| raw:: html
 
    <a href="http://docs.splunk.com/Documentation/Splunk/latest/Data/UsetheHTTPEventCollector" target="_blank">Splunk HTTP Event Collector documentation</a>
+
+.. |GELF| raw:: html
+
+  <a href="http://docs.graylog.org/en/3.0/pages/sending_data.html" target="_blank">GELF via HTTP documentation</a>
 
 .. |HTTP Data Collector API| raw:: html
 
