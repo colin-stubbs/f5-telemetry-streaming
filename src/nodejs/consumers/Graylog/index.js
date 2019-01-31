@@ -13,10 +13,9 @@ const zlib = require('zlib');
 
 const dataMapping = require('./dataMapping.js');
 
-const GZIP_DATA = true;
+const GZIP_DATA = false;
 const MAX_CHUNK_SIZE = 99000;
 const POST_DATA_URI = '/gelf';
-
 
 /**
  * See {@link ../README.md#context} for documentation
@@ -145,6 +144,7 @@ function getDefaultRequestOpts(consumer) {
     if (consumer.gzip !== undefined ? consumer.gzip : GZIP_DATA) {
         defaults.gzip = true;
         Object.assign(defaults.headers, {
+            "Content-Type": "application/json",
             'Accept-Encoding': 'gzip',
             'Content-Encoding': 'gzip'
         });
@@ -186,11 +186,12 @@ function sendDataChunk(dataChunk, context) {
         const opts = {
             body: data,
             headers: {
-                'Content-Length': data.length
+                'Content-Length': data.length,
+                'Content-Type': 'application/json'
             }
         };
         context.request.post(opts, (error, response, body) => {
-            if (error || !response || response.statusCode >= 300) {
+            if (error || !response || response.statusCode != 202) {
                 const errMsg = JSON.stringify({
                     error,
                     body,
@@ -233,30 +234,16 @@ function forwardData(dataToSend, globalCtx) {
             }, null, 2));
         }
 
-        let dataChunk = [];
-        let chunkSize = 0;
-
         // eslint-disable-next-line
         for (let i = 0; i < dataToSend.length; i++) {
             const data = dataToSend[i];
 
-            if (chunkSize < MAX_CHUNK_SIZE) {
-                chunkSize += data.length;
-                dataChunk.push(data);
-            }
-            if (chunkSize >= MAX_CHUNK_SIZE || i === dataToSend.length - 1) {
-                sendDataChunk(dataChunk, context)
-                    .then((res) => {
-                        globalCtx.logger.debug(`Response status code: ${res}`);
-                    }).catch((err) => {
-                        globalCtx.logger.error(`Unable to send data chuck: ${err}`);
-                    });
-
-                if (i !== dataToSend.length) {
-                    dataChunk = [];
-                    chunkSize = 0;
-                }
-            }
+            sendDataChunk([data], context)
+                .then((res) => {
+                    globalCtx.logger.debug(`Response status code: ${res}`);
+                }).catch((err) => {
+                    globalCtx.logger.error(`Unable to send data chuck: ${err}`);
+                });
         }
         resolve(true);
     });

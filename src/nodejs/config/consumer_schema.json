@@ -26,7 +26,7 @@
                         "type": "boolean",
                         "default": true
                     },
-                    "enable": {
+                    "gzip": {
                          "title": "gzip",
                          "description": "Enable or disable gzip compression" ,
                          "type": "boolean",

@@ -17,6 +17,7 @@ function defaultFormat(globalCtx) {
         short_message: 'f5.telemetry',
         full_message: data,
         timestamp: data.timestamp,
+        level: 6,
         _source: 'f5.telemetry',
         _sourcetype: 'f5:telemetry:json',
     };
@@ -46,6 +47,7 @@ function getTemplate(sourceName, data, cache) {
             facility: data.facility || ''
         },
         timestamp: cache.dataTimestamp,
+        level: 6,
         _source: sourceName,
         _sourcetype: SOURCE_2_TYPES[sourceName],
     };
